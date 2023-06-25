@@ -28,7 +28,7 @@ const SignOutButton = () => {
       {isLoading.value ? (
         <>
           <ReloadIcon className="w-4 h-4 mr-2 animate-spin" />
-          Please Wait
+          Signing Out
         </>
       ) : (
         "Sign Out"
