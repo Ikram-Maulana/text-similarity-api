@@ -21,6 +21,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased bg-slate-50 dark:bg-slate-900">
         <Providers>
           <Navbar />
+          <MobileMenu />
 
           <main>{children}</main>
 
