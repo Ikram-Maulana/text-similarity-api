@@ -21,7 +21,7 @@ interface paragraphsProps
   extends HTMLAttributes<HTMLParagraphElement>,
     VariantProps<typeof paragraphsVariants> {}
 
-const paragraphs = forwardRef<HTMLParagraphElement, paragraphsProps>(
+const Paragraphs = forwardRef<HTMLParagraphElement, paragraphsProps>(
   ({ className, size, children, ...props }, ref) => {
     return (
       <p
@@ -35,6 +35,6 @@ const paragraphs = forwardRef<HTMLParagraphElement, paragraphsProps>(
   }
 );
 
-paragraphs.displayName = "paragraphs";
+Paragraphs.displayName = "Paragraphs";
 
-export default paragraphs;
+export default Paragraphs;
