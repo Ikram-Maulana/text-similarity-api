@@ -8,7 +8,7 @@ import { Input } from "@/ui/input";
 import Paragraphs from "@/ui/paragraphs";
 import { toast } from "@/ui/use-toast";
 import { useSignal } from "@preact/signals-react";
-import { LockClosedIcon } from "@radix-ui/react-icons";
+import { LockClosedIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { FormEvent } from "react";
 
 const RequestApiKey = () => {
@@ -71,7 +71,14 @@ const RequestApiKey = () => {
         </div>
         <div className="flex justify-center mt-3 sm:mt-0 sm:ml-4 sm:flex-shrink-0">
           <Button disabled={!!apiKey.value || isCreating.value}>
-            {isCreating.value ? "Creating..." : "Request API Key"}
+            {isCreating.value ? (
+              <>
+                <ReloadIcon className="w-4 h-4 mr-2 animate-spin" />
+                Creating
+              </>
+            ) : (
+              "Request API Key"
+            )}
           </Button>
         </div>
       </form>

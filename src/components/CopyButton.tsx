@@ -19,20 +19,15 @@ const CopyButton: FC<CopyButtonProps> = ({
 }) => {
   const clipboard = useClipboard();
 
-  useComputed(() => {
-    if (clipboard.copied) {
-      toast({
-        title: "Copied!",
-        description: "API Key Copied to Clipboard",
-      });
-    }
-  });
-
   return (
     <Button
       {...props}
       onClick={() => {
         clipboard.copy(valueToCopy);
+        toast({
+          title: "Copied!",
+          description: "API Key Copied to Clipboard",
+        });
       }}
       variant="ghost"
       className={cn(className)}
