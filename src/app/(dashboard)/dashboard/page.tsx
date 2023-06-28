@@ -1,4 +1,4 @@
-import ApiDashboard from "@/components/ApiDashboard";
+import ApiDashboard from "@/components/api-dashboard";
 import RequestApiKey from "@/components/RequestApiKey";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";

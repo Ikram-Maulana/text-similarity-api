@@ -1,3 +1,5 @@
+import { columns } from "@/api-dashboard/columns";
+import { DataTable } from "@/api-dashboard/data-tables";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import Heading from "@/ui/heading";
@@ -33,18 +35,31 @@ const ApiDashboard = async () => {
     timestamp: formatDistance(new Date(req.timestamp), new Date()),
   }));
 
+  const data = serializableRequests.map((request) => ({
+    usedApiKey: request.usedApiKey,
+    path: request.path,
+    recency: `${request.timestamp} ago`,
+    duration: `${request.duration} ms`,
+    status: request.status,
+  }));
+
   return (
     <div className="container flex flex-col gap-6">
       <Heading>Welcome back, {user.user.name}</Heading>
       <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-start">
         <Paragraphs>Your API key:</Paragraphs>
-        <Input className="truncate w-fit" readOnly value={activeApiKey.key} />
+        <Input
+          className="truncate w-fit dark:text-slate-400"
+          readOnly
+          value={activeApiKey.key}
+        />
         {/* Add options to create new / revoke */}
       </div>
 
       <Paragraphs className="mt-4 -mb-4 text-center md:text-left">
         Your API history:
       </Paragraphs>
+      <DataTable columns={columns} data={data} />
     </div>
   );
 };
