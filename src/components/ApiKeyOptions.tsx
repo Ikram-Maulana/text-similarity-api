@@ -1,6 +1,7 @@
 "use client";
 
 import { createApiKey } from "@/helpers/create-api-key";
+import { revokeApiKey } from "@/helpers/revoke-api-key";
 import { Button } from "@/ui/button";
 import {
   DropdownMenu,
@@ -29,9 +30,9 @@ const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyId, apiKeyKey }) => {
   const createNewApiKey = async () => {
     try {
       isCreatingNew.value = true;
-      await revokeApiKey({ keyId: apiKeyId });
+      await revokeApiKey();
       await createApiKey();
-      router.reload();
+      router.refresh();
     } catch (error) {
       toast({
         variant: "destructive",
@@ -40,6 +41,22 @@ const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyId, apiKeyKey }) => {
       });
     } finally {
       isCreatingNew.value = false;
+    }
+  };
+
+  const revokeCurrentApiKey = async () => {
+    try {
+      isRevoking.value = true;
+      await revokeApiKey();
+      router.refresh();
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error revoking API key",
+        description: "Please try again later.",
+      });
+    } finally {
+      isRevoking.value = false;
     }
   };
 
@@ -74,8 +91,12 @@ const ApiKeyOptions: FC<ApiKeyOptionsProps> = ({ apiKeyId, apiKeyKey }) => {
         >
           Copy
         </DropdownMenuItem>
-        <DropdownMenuItem>Create new key</DropdownMenuItem>
-        <DropdownMenuItem>Revoke key</DropdownMenuItem>
+        <DropdownMenuItem onClick={createNewApiKey}>
+          Create new key
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={revokeCurrentApiKey}>
+          Revoke key
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
