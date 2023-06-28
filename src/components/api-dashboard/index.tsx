@@ -8,6 +8,7 @@ import Paragraphs from "@/ui/paragraphs";
 import { formatDistance } from "date-fns";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import ApiKeyOptions from "../ApiKeyOptions";
 
 const ApiDashboard = async () => {
   const user = await getServerSession(authOptions);
@@ -53,7 +54,10 @@ const ApiDashboard = async () => {
           readOnly
           value={activeApiKey.key}
         />
-        {/* Add options to create new / revoke */}
+        <ApiKeyOptions
+          apiKeyId={activeApiKey.id}
+          apiKeyKey={activeApiKey.key}
+        />
       </div>
 
       <Paragraphs className="mt-4 -mb-4 text-center md:text-left">
