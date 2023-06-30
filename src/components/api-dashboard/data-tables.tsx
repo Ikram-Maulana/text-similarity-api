@@ -87,7 +87,7 @@ export function DataTable<TData, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="border rounded-md">
+      <div className="mb-0 border rounded-md">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -137,7 +137,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end py-4 space-x-2">
+      <div className="flex items-center justify-end py-4 mb-0 space-x-2 md:mb-40">
         <Button
           variant="outline"
           size="sm"
