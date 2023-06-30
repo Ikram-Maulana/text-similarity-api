@@ -15,7 +15,7 @@ const page = () => {
     <div className="container mx-auto mt-12 max-w-7xl">
       <div className="flex flex-col items-center gap-6">
         <Heading>Making a Request</Heading>
-        <Paragraphs>api/v1/similarity</Paragraphs>
+        <Paragraphs>api/v1/text-similarity</Paragraphs>
 
         <DocumentationTabs />
       </div>
