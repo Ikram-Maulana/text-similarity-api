@@ -11,7 +11,7 @@ import {
 } from "@/ui/dropdown-menu";
 import { useToast } from "@/ui/use-toast";
 import { useViewportSize } from "@mantine/hooks";
-import { useSignal } from "@preact/signals-react";
+import { effect, useSignal } from "@preact/signals-react";
 import {
   DashboardIcon,
   HomeIcon,
@@ -21,18 +21,17 @@ import {
 } from "@radix-ui/react-icons";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 const MobileMenu = () => {
   const { data: session } = useSession();
   const isLoading = useSignal(false);
-  const [open, setOpen] = useState<boolean>(false);
+  const open = useSignal(false);
   const { toast } = useToast();
   const { width } = useViewportSize();
 
-  useEffect(() => {
-    if (width >= 768) setOpen(false);
-  }, [width]);
+  effect(() => {
+    if (width >= 768) open.value = false;
+  });
 
   const signUserOut = async () => {
     try {
@@ -50,14 +49,20 @@ const MobileMenu = () => {
   return (
     <nav className="fixed left-0 right-0 z-50 flex justify-center md:hidden bottom-20">
       <div className="rounded-md shadow-2xl outline outline-2 outline-white dark:outline-slate-900">
-        <DropdownMenu open={open} onOpenChange={setOpen}>
-          <DropdownMenuTrigger asChild onClick={() => setOpen((prev) => !prev)}>
+        <DropdownMenu
+          open={open.value}
+          onOpenChange={(isOpen) => (open.value = isOpen)}
+        >
+          <DropdownMenuTrigger
+            asChild
+            onClick={() => (open.value = !open.value)}
+          >
             <Button variant="outline" size="lg">
               Menu
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuGroup onClick={() => setOpen(false)}>
+            <DropdownMenuGroup onClick={() => (open.value = false)}>
               <DropdownMenuItem asChild>
                 <Link href="/" className="w-full flex items-center gap-1.5">
                   <HomeIcon className="w-5 h-5 mr-2" />
