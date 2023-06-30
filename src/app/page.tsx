@@ -35,7 +35,7 @@ export default function Home() {
             .
           </Paragragraphs>
 
-          <div className="relative w-full max-w-lg lg:max-w-3xl lg:left-1/2 aspect-square lg:absolute">
+          <div className="relative w-full max-w-lg lg:max-w-xl lg:left-[55%] aspect-square lg:absolute">
             <Image
               priority
               className="image-shadow"
@@ -44,8 +44,8 @@ export default function Home() {
                 objectFit: "contain",
               }}
               fill
-              src="/typewriter.png"
-              alt="typewriter"
+              src="/notebook.png"
+              alt="notebook"
             />
           </div>
         </div>
