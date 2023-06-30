@@ -51,7 +51,7 @@ export default withAuth(
       !isAuth &&
       sensitiveRoutes.some((route) => pathname.startsWith(route))
     ) {
-      return NextResponse.redirect(new URL("/login", req.url));
+      return null;
     }
   },
   {
