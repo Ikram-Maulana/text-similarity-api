@@ -44,14 +44,14 @@ export default withAuth(
       if (isAuth) {
         return NextResponse.redirect(new URL("/dashboard", req.url));
       }
-      return NextResponse.next();
+      return null;
     }
 
     if (
       !isAuth &&
       sensitiveRoutes.some((route) => pathname.startsWith(route))
     ) {
-      return null;
+      return NextResponse.redirect(new URL("/login", req.url));
     }
   },
   {
