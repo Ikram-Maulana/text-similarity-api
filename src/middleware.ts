@@ -42,16 +42,16 @@ export default withAuth(
 
     if (isAuthPage) {
       if (isAuth) {
-        return NextResponse.redirect(new URL("/dashboard", req.url));
+        return NextResponse.redirect("/dashboard");
       }
-      return null;
+      return NextResponse.next();
     }
 
     if (
       !isAuth &&
       sensitiveRoutes.some((route) => pathname.startsWith(route))
     ) {
-      return null;
+      return NextResponse.redirect("/login");
     }
   },
   {
