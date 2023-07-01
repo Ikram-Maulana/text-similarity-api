@@ -2,7 +2,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { getToken } from "next-auth/jwt";
 import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const redis = Redis.fromEnv();
 
@@ -12,7 +12,7 @@ const ratelimit = new Ratelimit({
 });
 
 export default withAuth(
-  async function middleware(req) {
+  async function middleware(req: NextRequest) {
     const pathname = req.nextUrl.pathname; // relative path
 
     // Manage rate limiting
@@ -40,15 +40,18 @@ export default withAuth(
     const isAuthPage = req.nextUrl.pathname.startsWith("/login");
     const sensitiveRoutes = ["/dashboard"];
 
-    if (isAuth && isAuthPage) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    if (isAuthPage) {
+      if (isAuth) {
+        return NextResponse.redirect(new URL("/dashboard", req.url));
+      }
+      return null;
     }
 
     if (
       !isAuth &&
       sensitiveRoutes.some((route) => pathname.startsWith(route))
     ) {
-      return NextResponse.redirect(new URL("/login", req.url));
+      return null;
     }
   },
   {
