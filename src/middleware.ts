@@ -42,7 +42,7 @@ export default withAuth(
 
     if (isAuthPage) {
       if (isAuth) {
-        return NextResponse.redirect("/dashboard");
+        return NextResponse.redirect(new URL("/dashboard", req.url));
       }
       return NextResponse.next();
     }
@@ -51,7 +51,7 @@ export default withAuth(
       !isAuth &&
       sensitiveRoutes.some((route) => pathname.startsWith(route))
     ) {
-      return NextResponse.redirect("/login");
+      return null;
     }
   },
   {
